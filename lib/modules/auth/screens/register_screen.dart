@@ -47,107 +47,143 @@ class RegisterScreen extends ConsumerWidget {
                   children: [
                     Image.asset(
                       'assets/logo_blanco.png',
-                      height: 100,
+                      height: 150,
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 10,
-                            spreadRadius: 2,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Bienvenido\nRegistra tu cuenta",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 350, // Ancho aumentado del box blanco
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30), // Bordes más redondeados
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                              offset: Offset(0, 8), // Sombra solo hacia abajo
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          TextField(
-                            controller: userController,
-                            decoration: InputDecoration(
-                              labelText: 'Usuario',
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(22),
-                                borderSide: BorderSide.none,
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Bienvenido\nRegistra tu cuenta",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          TextField(
-                            controller: emailController,
-                            decoration: InputDecoration(
-                              labelText: 'Correo Electrónico',
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(22),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          TextField(
-                            controller: passwordController,
-                            decoration: InputDecoration(
-                              labelText: 'Contraseña',
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(22),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: auth
-                                ? null
-                                : () {
-                                    ref.read(authProvider.notifier).register(
-                                          userController.text,
-                                          emailController.text,
-                                          passwordController.text,
-                                        );
-                                  },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(22),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 15),
-                            ),
-                            child: auth
-                                ? const CircularProgressIndicator()
-                                : const Text(
-                                    'Registrarse',
-                                    style: TextStyle(color: Colors.white),
+                            const SizedBox(height: 20),
+
+                            // Campo Usuario
+                            SizedBox(
+                              width: 280, // Más corto horizontalmente
+                              child: TextField(
+                                controller: userController,
+                                decoration: InputDecoration(
+                                  labelText: 'Usuario',
+                                  filled: false,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(22),
+                                    borderSide: const BorderSide(color: Colors.black),
                                   ),
-                          ),
-                          const SizedBox(height: 10),
-                          TextButton(
-                            onPressed: () {
-                              GoRouter.of(context).go("/login");
-                            },
-                            child: const Text('¿Ya tienes una cuenta? Ingresa'),
-                          ),
-                        ],
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10), // Altura reducida
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            // Campo Correo Electrónico
+                            SizedBox(
+                              width: 280,
+                              child: TextField(
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                  labelText: 'Correo Electrónico',
+                                  filled: false,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(22),
+                                    borderSide: const BorderSide(color: Colors.black),
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            // Campo Contraseña
+                            SizedBox(
+                              width: 280,
+                              child: TextField(
+                                controller: passwordController,
+                                decoration: InputDecoration(
+                                  labelText: 'Contraseña',
+                                  filled: false,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(22),
+                                    borderSide: const BorderSide(color: Colors.black),
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                                ),
+                                obscureText: true,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+
+                            // Botón de Registro
+                            ElevatedButton(
+                              onPressed: auth
+                                  ? null
+                                  : () {
+                                      ref.read(authProvider.notifier).register(
+                                            userController.text,
+                                            emailController.text,
+                                            passwordController.text,
+                                          );
+                                    },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                              ),
+                              child: auth
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Registrarse',
+                                      style: TextStyle(color: Colors.white, fontSize: 18),
+                                    ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            // Enlace para iniciar sesión
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  '¿Ya tienes una cuenta? ',
+                                  style: TextStyle(color: Colors.black87),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    context.go('/login'); // Redirige a la pantalla de inicio de sesión
+                                  },
+                                  child: const Text(
+                                    'Ingresa',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
