@@ -134,6 +134,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(title: 'Flutter App', routerConfig: router);
+    return MaterialApp.router(title: 'Flutter App', routerConfig: router, debugShowCheckedModeBanner: false,);
   }
 }

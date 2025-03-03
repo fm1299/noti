@@ -22,6 +22,8 @@ class AuthNotifier extends StateNotifier<bool> {
     await _authLocalStorage.removeToken();
     state = false;
   }
+
+  void register(String text, String text2, String text3) {}
 }
 
 final authProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {
