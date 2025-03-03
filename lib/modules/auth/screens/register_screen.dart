@@ -51,18 +51,18 @@ class RegisterScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     SizedBox(
-                      width: 350, // Ancho aumentado del box blanco
+                      width: 350,
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(30), // Bordes más redondeados
+                          borderRadius: BorderRadius.circular(30),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black26,
                               blurRadius: 10,
                               spreadRadius: 0,
-                              offset: Offset(0, 8), // Sombra solo hacia abajo
+                              offset: Offset(0, 8),
                             ),
                           ],
                         ),
@@ -80,17 +80,15 @@ class RegisterScreen extends ConsumerWidget {
 
                             // Campo Usuario
                             SizedBox(
-                              width: 280, // Más corto horizontalmente
+                              width: 280,
                               child: TextField(
                                 controller: userController,
                                 decoration: InputDecoration(
                                   labelText: 'Usuario',
-                                  filled: false,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(22),
-                                    borderSide: const BorderSide(color: Colors.black),
                                   ),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10), // Altura reducida
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                                 ),
                               ),
                             ),
@@ -103,10 +101,8 @@ class RegisterScreen extends ConsumerWidget {
                                 controller: emailController,
                                 decoration: InputDecoration(
                                   labelText: 'Correo Electrónico',
-                                  filled: false,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(22),
-                                    borderSide: const BorderSide(color: Colors.black),
                                   ),
                                   contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                                 ),
@@ -119,16 +115,14 @@ class RegisterScreen extends ConsumerWidget {
                               width: 280,
                               child: TextField(
                                 controller: passwordController,
+                                obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Contraseña',
-                                  filled: false,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(22),
-                                    borderSide: const BorderSide(color: Colors.black),
                                   ),
                                   contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                                 ),
-                                obscureText: true,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -138,6 +132,7 @@ class RegisterScreen extends ConsumerWidget {
                               onPressed: auth
                                   ? null
                                   : () {
+                                      print("Botón de registro presionado");
                                       ref.read(authProvider.notifier).register(
                                             userController.text,
                                             emailController.text,
@@ -158,9 +153,26 @@ class RegisterScreen extends ConsumerWidget {
                                       style: TextStyle(color: Colors.white, fontSize: 18),
                                     ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 20),
 
-                            // Enlace para iniciar sesión
+                            // Íconos de Google, Apple y Facebook con fondo circular
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _buildSocialIcon('assets/google_logo.png', () {
+                                  print("Iniciar sesión con Google");
+                                }),
+                                const SizedBox(width: 20),
+                                _buildSocialIcon('assets/apple_logo.png', () {
+                                  print("Iniciar sesión con Apple");
+                                }),
+                                const SizedBox(width: 20),
+                                _buildSocialIcon('assets/facebook_logo.png', () {
+                                  print("Iniciar sesión con Facebook");
+                                }),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -170,7 +182,7 @@ class RegisterScreen extends ConsumerWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    context.go('/login'); // Redirige a la pantalla de inicio de sesión
+                                    context.go('/login');
                                   },
                                   child: const Text(
                                     'Ingresa',
@@ -192,6 +204,28 @@ class RegisterScreen extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // Widget para construir iconos sociales con fondo circular
+  Widget _buildSocialIcon(String assetPath, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Color(0xFFF2F1F1),
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Image.asset(
+            assetPath,
+            width: 30,
+            height: 30,
+          ),
+        ),
       ),
     );
   }
